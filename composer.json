@@ -18,6 +18,7 @@
         "phpunit/phpunit": "^9.6"
     },
     "require": {
+        "php": ">=8.0",
         "symfony/dom-crawler": "^6.0",
         "symfony/http-client": "^6.0",
         "symfony/css-selector": "^6.0"
