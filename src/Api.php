@@ -7,7 +7,10 @@ use Symfony\Component\DomCrawler\Crawler;
 
 class Api
 {
-    public function scrapRequest() : array
+    /**
+     * @return array<int, array<string, string|null>>
+     */
+    public function scrapRequest(): array
     {
         $client = HttpClient::create();
         $response = $client->request(
@@ -24,7 +27,8 @@ class Api
         $crawler->filter('a.large-6')->each(function (Crawler $node) use (&$results) {
             $h3 = $node->filter('h3')->text();
             $image = $node->filter('img')->attr('src');
-            $description = $node->filter('p')->eq(1)->text();
+            $descriptionNode = $node->filter('p')->eq(1);
+            $description = $descriptionNode->count() > 0 ? $descriptionNode->text() : null;
 
             $result = [
                 'title' => $h3,
@@ -38,4 +42,3 @@ class Api
         return $results;
     }
 }
-?>
